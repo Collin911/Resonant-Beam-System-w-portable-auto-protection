@@ -1,6 +1,8 @@
 # Portable-Auto-Protection-RBS
 Explore my paper with IEEEXplore https://ieeexplore.ieee.org/document/10192905
+
 Cite our work with BibTex:
+```LaTex
 @ARTICLE{10192905,
   author={Xia, Shuaifan and Liu, Qingwen and Liu, Mingqing and Fang, Wen and Xiong, Mingliang and Bai, Yunfeng and Li, Xiaozhe},
   journal={IEEE Internet of Things Journal}, 
@@ -10,6 +12,7 @@ Cite our work with BibTex:
   number={},
   pages={1-1},
   doi={10.1109/JIOT.2023.3298521}}
+```
 
 In this paper, we proposed an auto-protection scheme for the resonant beam system, with which potential simultaneous lightwave information and power transfer (SLIPT) could be realized. With our scheme, the intra-cavity laser can be automatically shut off when foreign objects invade into the optical path, leaving minimum radiance exposure onto the invading object, ensuring enhanced safety. We employed phase compensation scheme to ensure the availability under portable application scenario. 
 
