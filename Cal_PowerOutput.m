@@ -1,0 +1,20 @@
+function P_out = Cal_PowerOutput(A_b, I_s, Vvec, Vs, g0l, Ro)
+V1 = Vvec(1:4:end);
+V2 = Vvec(2:4:end);
+V3 = Vvec(3:4:end);
+V4 = Vvec(4:4:end);
+V_rt = V1 .* V2 .* V3 .* V4;
+P_out = A_b .* I_s;
+numerator = (1-Ro) .* V2; % positive
+denom1 = Ro .* V2 .* V3; % positive
+denom2 = sqrt(Ro .* V_rt); % negative
+denom3 = 1./(V1 .* V2 .* Vs) - Vs; % negative
+denominator = 1 - denom1 + denom2.*denom3;
+frac = numerator ./ denominator;
+P_out = P_out .* frac;
+
+g0lThresh = abs(log(sqrt(Ro .* V_rt) .* Vs));
+
+P_out = max(P_out .* (g0l-g0lThresh),0);
+
+end
