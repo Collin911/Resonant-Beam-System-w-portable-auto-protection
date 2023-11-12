@@ -18,3 +18,5 @@ In this paper, we proposed an auto-protection scheme for the resonant beam syste
 
 To run the simulation for 2D lightwave field transmission, open *exp_V2.m*, setup parameters (there are also some global parameters in Para_FFTAlgorithm), and run. 
 With the results obtained by exp_V2.m, additional SWIPT metrics can be calculated with *exp_SWIPT.m*
+
+There are some **REDUNDANT** files, e.g., among those files with the same name but different _V suffixes, only the latest version (with largest _V#) is called typically. For some reasons, some legacy codes from other works are included here, check from exp_v2 stack by stack, if a function is never called, simply delete it will be ok. 
