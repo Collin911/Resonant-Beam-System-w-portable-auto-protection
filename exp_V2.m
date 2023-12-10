@@ -58,14 +58,9 @@ Vs = 0.99;
 
 [itr, samplingNum, windowExpandFactor,...
     windowSize, delta, deltaF, lambda] = Para_FFTAlgorithm_V2(r_CatEye, f, 0);
-% H_fsdf = Cal_FreeSpaceTransferMatrixDIShift(d+f, lambda, r_CatEye, 0);
-% H_fsdf2 = Cal_FreeSpaceTransferMatrixDIShift(d+f, lambda, r_CatEye, 0);
-% H_fsl = Cal_FreeSpaceTransferMatrixDI(l, lambda, r_CatEye);
-% H_fsf = Cal_FreeSpaceTransferMatrixDI(f, lambda, r_CatEye);
 
 H_fsl = Cal_FreeSpaceTransferMatrixAS(l, lambda, r_CatEye);
 H_fsf = Cal_FreeSpaceTransferMatrixAS(f, lambda, r_CatEye);
-H_fsr = Cal_FreeSpaceTransferMatrixAS(2*r_CatEye, lambda, r_CatEye);
 
 H_lens = Cal_LensImpactMatrix(f, lambda, r_CatEye);
 H_lensShift = Cal_LensImpactMatrixShift(f, lambda, r_CatEye, 0, 0);
@@ -73,9 +68,8 @@ B_lens = Cal_BoundaryFunction(r_CatEye, r_CatEye, 0);
 B_aper = Cal_BoundaryFunction(r_aperture, r_CatEye, 0);
 B_lensShift = Cal_BoundaryFunction(r_CatEye, r_CatEye, 0);
 
-Rp = 0;
-Ro = 0.95;
-H_fsdf = Cal_FreeSpaceTransferMatrixAS(d+f, lambda, r_CatEye);
+Rp = 0;    % physical reflectance of the protective beam mirror
+Ro = 0.95; % physical reflectance of the output mirror
 
 % move this block into the loop when running tilt exp
 tiltPsi = 0;
