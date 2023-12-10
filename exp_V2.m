@@ -96,11 +96,15 @@ H_shiftwindow_backward = Cal_ShiftPhaseMatrixAS(0, -shiftWindow, r_CatEye);
 
 
 as = [15:15:75]./180.*pi;
-ss = tan(as) * d;
+
+ss = tan(as) * d; % shift is calculated via angles, 
+% when using this, you may want to change the "as" to more suitable value for shift exp
+
 ds = [0.5:0.1:6];
-xAxis = as ./pi .*180;
-xAxis = ds;
+
+xAxis = ds; % This is for figure drawing
 A_gm = r_aperture ^ 2 * pi;
+
 for d = ds % shift = ss for shift exo. tiltPsi=as for tilt txp
 
 % move this line out of the loop when not running distance exp
