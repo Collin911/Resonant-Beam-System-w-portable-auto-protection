@@ -3,6 +3,7 @@ clear all
 close all
 
 %gpuDevice(2);
+% pb stands for protective beam
 V_pb = [];
 S_pb = [];
 Vp_pb= [];
@@ -11,6 +12,7 @@ ThreshP = [];
 Vvec_pb = [];
 Pout_pb = [];
 
+% np stands for no protective beam
 V_np = [];
 S_np = [];
 itr_np = [];
@@ -18,6 +20,7 @@ ThreshNP = [];
 Vvec_np = [];
 Pout_np = [];
 
+% pbm stands for protective beam modulated
 V_pbm= [];
 S_pbm= [];
 Vp_pm= [];
@@ -74,6 +77,7 @@ Rp = 0;
 Ro = 0.95;
 H_fsdf = Cal_FreeSpaceTransferMatrixAS(d+f, lambda, r_CatEye);
 
+% move this block into the loop when running tilt exp
 tiltPsi = 0;
 
 if tiltPsi ~= 0
@@ -84,7 +88,9 @@ if tiltPsi ~= 0
 else
     tiltParam = 0;
 end
+% tilt code block
 
+% move this block into the loop when running shift exp
 shift=0;
 shift2 = -shift;
 windowTimes = floor(abs(shift)/(r_CatEye * 3))+1
@@ -92,19 +98,18 @@ shiftWindow = shift / windowTimes;
 
 H_shiftwindow_forward = Cal_ShiftPhaseMatrixAS(0, shiftWindow, r_CatEye);
 H_shiftwindow_backward = Cal_ShiftPhaseMatrixAS(0, -shiftWindow, r_CatEye);
+% shift code block
 
 
-
-ss = [-0.4:0.05:0.4];
 as = [15:15:75]./180.*pi;
 ss = tan(as) * d;
 ds = [0.5:0.1:6];
 xAxis = as ./pi .*180;
 xAxis = ds;
 A_gm = r_aperture ^ 2 * pi;
-for d = ds
+for d = ds % shift = ss for shift exo. tiltPsi=as for tilt txp
 
-
+% move this line out of the loop when not running distance exp
 H_fsw = Cal_FreeSpaceTransferMatrixAS(d/windowTimes, lambda, r_CatEye);
 
 
