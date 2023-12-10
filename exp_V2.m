@@ -142,57 +142,57 @@ ThreshNP_i = Cal_PowerThresh(1, Ro, V_ni, 1, 0.99, eta_excit, A_gm,I_s);
 ThreshNP = [ThreshNP ThreshNP_i];
 
 
-% % Modulation scenario
-% ERm_i = ER_i;
-% ThreshPm_i = ThreshP_i;
-% S_mi = S_i;
-% V_mi = V_i;
-% Vvec_pmi = Vvec_pbi;
-% modu_len = 0;
-% 
-% try 
-%     V_mi_last = V_pbm(end); % The first point will throw invalid index exception 'cuz V_pbm==[]
-% catch 
-%     V_mi_last = V_mi;
-% end
-% 
-% try
-%     ERm_last = ERm(end);
-% catch
-%     ERm_last = ERm_i;
-% end
-% 
-% if ERm_i < Ro || V_mi_last - V_mi > 0.1 || ERm_last - ERm_i > 0.2
-%     disp("Perform half wavelength modulation")
-%     modu_len = 0.5 * lambda;
-%     opd = opd + modu_len;
-%     V_mi_old = V_mi;
-%     S_mi_old = S_mi;
-%     Vvec_old = Vvec_pbi;
-%     ERm_i_old = ERm_i;
-%     Vp_old = Vp;
-%     [S_mi, U_eigen, U_pm, itr_times, Vp, Vvec_pmi] = Cal_Mode_V3_multipleV(H_fsw, windowTimes, H_fsl,...
-%        H_lens,H_lensShift, H_fsf, B_lens, B_aper, B_lensShift, r_CatEye,...
-%        H_shiftwindow_forward, H_shiftwindow_backward, tiltParam, ro, rp, opd);
-%     V_mi = Cal_DiffractionEfficiency(U_eigen, U_pm);    
-%     ERm_i = Cal_EquivalentReflect_V2_own(opd, lambda, 0, Ro, Rp, V_i);
-%     if V_mi < V_mi_old || ERm_i < ERm_i_old
-%         disp("Modulation fail, back out to unmodulated...")
-%         V_mi = V_mi_old;
-%         S_mi = S_mi_old;
-%         Vvec_pmi = Vvec_old;
-%         ERm_i = ERm_i_old;
-%     end
-%     ThreshPm_i = Cal_PowerThresh(1, ERm_i, V_mi, 1, 0.99, eta_excit, A_gm,I_s);
-% end
-% ifModu = [ifModu ERm_i==ER_i];
-% Vp_pm = [Vp_pm Vp];
-% V_pbm = [V_pbm V_mi]
-% S_pbm = [S_pbm S_mi];
-% Vvec_pm = [Vvec_pm Vvec_pmi]
-% itr_pm = [itr_pm itr_times]
-% ERm = [ERm ERm_i];
-% ThreshPm = [ThreshPm ThreshPm_i];
+% Modulation scenario
+ERm_i = ER_i;
+ThreshPm_i = ThreshP_i;
+S_mi = S_i;
+V_mi = V_i;
+Vvec_pmi = Vvec_pbi;
+modu_len = 0;
+
+try 
+    V_mi_last = V_pbm(end); % The first point will throw invalid index exception 'cuz V_pbm==[]
+catch 
+    V_mi_last = V_mi;
+end
+
+try
+    ERm_last = ERm(end);
+catch
+    ERm_last = ERm_i;
+end
+
+if ERm_i < Ro || V_mi_last - V_mi > 0.1 || ERm_last - ERm_i > 0.2
+    disp("Perform half wavelength modulation")
+    modu_len = 0.5 * lambda;
+    opd = opd + modu_len;
+    V_mi_old = V_mi;
+    S_mi_old = S_mi;
+    Vvec_old = Vvec_pbi;
+    ERm_i_old = ERm_i;
+    Vp_old = Vp;
+    [S_mi, U_eigen, U_pm, itr_times, Vp, Vvec_pmi] = Cal_Mode_V3_multipleV(H_fsw, windowTimes, H_fsl,...
+       H_lens,H_lensShift, H_fsf, B_lens, B_aper, B_lensShift, r_CatEye,...
+       H_shiftwindow_forward, H_shiftwindow_backward, tiltParam, ro, rp, opd);
+    V_mi = Cal_DiffractionEfficiency(U_eigen, U_pm);    
+    ERm_i = Cal_EquivalentReflect_V2_own(opd, lambda, 0, Ro, Rp, V_i);
+    if V_mi < V_mi_old || ERm_i < ERm_i_old
+        disp("Modulation fail, back out to unmodulated...")
+        V_mi = V_mi_old;
+        S_mi = S_mi_old;
+        Vvec_pmi = Vvec_old;
+        ERm_i = ERm_i_old;
+    end
+    ThreshPm_i = Cal_PowerThresh(1, ERm_i, V_mi, 1, 0.99, eta_excit, A_gm,I_s);
+end
+ifModu = [ifModu ERm_i==ER_i];
+Vp_pm = [Vp_pm Vp];
+V_pbm = [V_pbm V_mi]
+S_pbm = [S_pbm S_mi];
+Vvec_pm = [Vvec_pm Vvec_pmi]
+itr_pm = [itr_pm itr_times]
+ERm = [ERm ERm_i];
+ThreshPm = [ThreshPm ThreshPm_i];
 
 % % [x,y]=meshgrid(linspace(-2*r_CatEye, 2*r_CatEye, samplingNum));
 % subplot(4,5,i);
